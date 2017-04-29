@@ -50,9 +50,11 @@ Find the median of the two sorted arrays. The overall run time complexity should
 1、确定划分，第一个数组一共有n+1个划分位置，第一个数组划分位置为i，左侧集合E(L_A)，右侧集合E(R_A)，左侧最大元素为L_A=A[i-1]，右侧最小元素R_A=A[i]；
 第二个数组划分j=(m+n)/2-i，左侧集合E(L_B)，右侧集合E(R_B)，左侧最大元素为L_B=B[j-1]，右侧最小元素R_B=A[j]；
 
-2、判断划分是否满足要求：<= max(L_A,R_A) <= min(R_A,R_B)，
+2、判断划分是否满足要求： max(L_A,R_A) <= min(R_A,R_B)，
 
-3、二分法搜索合适的i，若max(L_A,R_A)<=min(R_A,R_B)，则符合要求，否则max(L_A,R_A)>min(R_A,R_B)；而因为L_A<=R_A，且L_B<=R_B，所以L_A>R_B，或者L_B
->R_B；若L_A>R_B，则E(L_A)元素偏大，则i需左移，即在左侧寻找，若L_B>R_A，则E(R_A)元素偏小，则i需右移，即在右侧寻找
+3、二分法搜索合适的i，若max(L_A,R_A)<=min(R_A,R_B)，则符合要求，否则max(L_A,R_A)>min(R_A,R_B)；而因为L_A<=R_A，且L_B<=R_B，所以L_A>R_B，或者L_B>R_B；若L_A>R_B，则E(L_A)元素偏大，则i需左移，即在左侧寻找，若L_B>R_A，则E(R_A)元素偏小，则i需右移，即在右侧寻找
+
+4、细节调整
+low=max(0,(n-m)/2), high=min(n,(m+n)/2)
 
 程序：
