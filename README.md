@@ -40,4 +40,5 @@ Find the median of the two sorted arrays. The overall run time complexity should
 2、判断划分是否满足要求：max(L_A,R_A)<=min(R_A,R_B)，
 3、二分法搜索合适的i，若max(L_A,R_A)<=min(R_A,R_B)，则符合要求，否则max(L_A,R_A)>min(R_A,R_B)；而因为L_A<=R_A，且L_B<=R_B，所以L_A>R_B，或者L_B
 >R_B；若L_A>R_B，则E(L_A)元素偏大，则i需左移，即在左侧寻找，若L_B>R_A，则E(R_A)元素偏小，则i需右移，即在右侧寻找
+
 程序：
