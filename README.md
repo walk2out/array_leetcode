@@ -58,6 +58,7 @@ Find the median of the two sorted arrays. The overall run time complexity should
 low=max(0,(n-m)/2), high=min(n,(m+n)/2)
 
 程序：
+
 class Solution {
 public:
 	double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
@@ -127,6 +128,7 @@ public:
 分析：条件反射是暴力求解，但是时间性能不允许；参考discussion，结合自己的理解，原来利用两端处，例如左端高度小于右端，由于容器装水依赖于次高，所以左端点不动，右端移动会导致宽度减少，并且次大肯定小于等于左端高度，所以左端点处不用再考虑，同理逐步移动，只需O(n)
 
 程序：
+
 class Solution {
         public:
             int maxArea(vector<int>& height) {
