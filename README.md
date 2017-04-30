@@ -7,6 +7,7 @@ leetcode刷题总结，此部分是array
 Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 
 程序：
+
 #include<vector>
 using namespace std;
 class Solution {
