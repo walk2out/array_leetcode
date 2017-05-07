@@ -150,4 +150,12 @@ class Solution {
         
 第四题
 
-问题：
+问题：Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+
+分析：既可以利用two sum的想法，也可以按照这位大神的做法https://discuss.leetcode.com/topic/8107/share-my-ac-c-solution-around-50ms-o-n-n-with-explanation-and-comments/2 ，先排序，然后利用木桶方法。
+
+第五题
+
+问题：Given an array S of n integers, find three integers in S such that the sum is closest to a given number, target. Return the sum of the three integers. You may assume that each input would have exactly one solution.
+
+分析：还是可以利用3 sum来解决。
