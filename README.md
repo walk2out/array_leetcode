@@ -159,3 +159,106 @@ class Solution {
 问题：Given an array S of n integers, find three integers in S such that the sum is closest to a given number, target. Return the sum of the three integers. You may assume that each input would have exactly one solution.
 
 分析：还是可以利用3 sum来解决。
+
+
+第53题：
+
+问题：Find the contiguous subarray within an array (containing at least one number) which has the largest sum.
+
+分析：一种思路是直接所有相加，时间性能是O（n^2），时间不允许；另一种是所有和先相加，然后从中找出落差最大且是是上升段，即为最大区间，但是很多情况，不知道如何统一处理，无法继续下去;还有一种想法从左往右加，若和小于零，则丢掉这部分，但是受制于想要求出区间的想法，无法继续思考下去
+
+参考：
+1）最简单的程序
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int ans=nums[0],i,j,sum=0;
+        for(i=0;i<nums.size();i++){
+            sum+=nums[i];
+            ans=max(sum,ans);
+            sum=max(sum,0);
+        }
+        return ans;
+    }
+};
+这个程序每次求和从零开始，若和小于零，则再从零开始。我当时也有这个想法，但是不知道如何继续下去
+
+2）求区间法程序
+class Solution {
+public:
+    int maxSubArray(int A[], int n) {
+        int sum = 0, min = 0, res = A[0];
+        for(int i = 0; i < n; i++) {
+            sum += A[i];
+            if(sum - min > res) res = sum - min;
+            if(sum < min) min = sum;
+        }
+        return res;
+    }
+};
+我也是这么想的，但是就是无法简洁的写出来；实际上还是重新归零计算
+
+这是我的程序
+class Solution {
+public:
+	int maxSubArray(vector<int>& nums) {
+	    std::vector<int>::iterator maxest = std::max_element(std::begin(nums), std::end(nums));
+	    if(*maxest<0)
+	        return *maxest;
+		
+		vector<int> sums;
+		int sum = 0;
+		sums.push_back(sum);
+		for (int i = 0;i < nums.size();i++)
+		{
+			sum = sums[i]+nums[i];
+			sums.push_back(sum);
+		}
+		int max=1;
+		for(int i=2;i<sums.size();i++)
+		    if(sums[i]>=sums[max]) max=i;
+		int min=0;
+		for(int i=1;i<=max;i++)
+		    if(sums[i]<sums[min]) min=i;
+        int res1=sums[max] - sums[min];
+		
+		min=0;
+		for(int i=1;i<sums.size();i++)
+		    if(sums[i]<sums[min]) min=i;
+		max=min;
+		for(int i=min;i<sums.size();i++)
+		    if(sums[i]>=sums[max]) max=i;
+        int res2=sums[max] - sums[min];
+        
+        if(res1<res2)
+            return res2;
+        else
+            return res1;
+	}
+};
+
+很复杂，结果还不对
+
+3）总结原因
+没有动态思想
+
+
+第88题：
+问题：Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
+
+分析：本质没有什么问题，但是难点在于m和n给的让人摸不着头脑；意思是说nums1长度为m+n，但是初始m
+
+程序：
+class Solution {
+public:
+	void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+		int i = m - 1, j = n - 1, k = m + n - 1;
+		while (j>=0)
+		{
+			if (i >= 0 && nums1[i] >= nums2[j])
+				nums1[k--] = nums1[i--];
+			else
+				nums1[k--] = nums2[j--];
+		}
+	}
+};
