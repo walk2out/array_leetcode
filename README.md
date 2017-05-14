@@ -160,6 +160,67 @@ class Solution {
 
 分析：还是可以利用3 sum来解决。
 
+第42题：
+问题：Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
+
+分析：木桶盛水短板原理，从两边往中间逼近，当前两块板间的盛水高度依赖于较短的一块，慢慢往中间逼近。
+
+程序：
+class Solution {
+public:
+	int trap(vector<int>& height) {
+		if (!height.size())
+			return 0;
+		//首先建立数组储存高度
+		vector<int> height_new;
+		height_new.push_back(height[0]);
+		for (int i = 0;i < height.size()-1;i++)
+		{
+			height_new.push_back(max(height[i],height[i+1]));
+		}
+		height_new.push_back(height[height.size()-1]);
+		//初始化
+		int l = 0;int r = height_new.size()-1;
+		int h_l = height_new[l];int h_r = height_new[r];
+		int h = 0;
+		int container=0;
+		//循环
+		while (l < r)
+		{
+			if (height_new[l] < height_new[r])
+			{
+				container = container + (height_new[l]-h) *(r - l);
+				h = height_new[l];
+				for (int i = l + 1;i <= r;i++)
+				{
+					if (height_new[i] >= height_new[l])
+					{
+						l = i;
+						break;
+					}
+				}
+			}
+			else
+			{
+				container = container + (height_new[r]-h) * (r - l);
+				h = height_new[r];
+				for (int i = r - 1;i >= l;i--)
+				{
+					if (height_new[i] >= height_new[r]) {
+						r = i;
+						break;
+					}
+				}
+
+			}
+		}
+		//除掉本身的水量
+		for (int i = 0;i < height.size();i++)
+			container = container - height[i];
+		return container;
+	}
+};
+
 
 第53题：
 
@@ -241,6 +302,16 @@ public:
 
 3）总结原因
 没有动态思想
+
+
+第66题：
+问题：Given a non-negative integer represented as a non-empty array of digits, plus one to the integer.
+You may assume the integer do not contain any leading zero, except the number 0 itself.
+The digits are stored such that the most significant digit is at the head of the list.
+
+分析：一开始没看懂题意，直接copy别人的程序
+
+程序：
 
 
 第88题：
